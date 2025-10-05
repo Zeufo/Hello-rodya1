@@ -81,32 +81,24 @@ void interface_draw(short Ox, short Oy, short coin_1, short coin_2, short count)
 	std::cout << std::endl << "Moves count >> " << count;
 }
 
-short get_button(char button, short Ox, short Oy)
+short get_button(char button)
 {
 	short what_to_return = 0;
 
-			switch (button) {
-			case 'd': {
-				Ox++;
-				what_to_return = 4;
-				break;
-			}
-			case 'a': {
-				Ox--;
-				what_to_return = 2;
-				break;
-			}
-			case 'w': {
-				Oy--;
-				what_to_return = 1;
-				break;
-			}
-			case 's': {
-				Oy++; //the bigger Oy the lower position
-				what_to_return = 3;
-				break;
-			}
-			}
+	switch (button) {
+	case 'd': {
+		what_to_return = 4;break;
+	}
+	case 'a': {
+		what_to_return = 2; break;
+	}
+	case 'w': {
+		what_to_return = 1; break;
+	}
+	case 's': {
+		what_to_return = 3; break;
+	}
+	}
 
 	return what_to_return;
 }
@@ -181,7 +173,7 @@ int main()
 						get_key = 1;
 				}
 
-				button = get_button(ch, player_Ox, player_Oy);
+				button = get_button(ch);
 				moves_count++;
 
 				switch (button)
