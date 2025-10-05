@@ -86,18 +86,11 @@ short get_button(char button)
 	short what_to_return = 0;
 
 	switch (button) {
-	case 'd': {
-		what_to_return = 4;break;
-	}
-	case 'a': {
-		what_to_return = 2; break;
-	}
-	case 'w': {
-		what_to_return = 1; break;
-	}
-	case 's': {
-		what_to_return = 3; break;
-	}
+	case 'd': what_to_return = 4 ;break;
+	case 'a': what_to_return = 2; break;
+	case 'w': what_to_return = 1; break;
+	case 's': what_to_return = 3; break;
+	default: return 0; 
 	}
 
 	return what_to_return;
