@@ -83,17 +83,8 @@ void interface_draw(short Ox, short Oy, short coin_1, short coin_2, short count)
 
 short get_button(char button, short Ox, short Oy)
 {
-	short tired = Oy;
-	short tired_again = Ox;
-	int get_key = 0;
 	short what_to_return = 0;
 
-	while (get_key == 0)
-	{
-		if ((Oy - tired) > 0 || (Ox - tired_again) > 0)
-		{
-			get_key = 1;
-		}
 			switch (button) {
 			case 'd': {
 				Ox++;
@@ -117,8 +108,6 @@ short get_button(char button, short Ox, short Oy)
 			}
 			}
 
-		
-	}
 	return what_to_return;
 }
 
