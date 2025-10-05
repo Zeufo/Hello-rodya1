@@ -1,4 +1,4 @@
-﻿#include<iostream>
+#include<iostream>
 #include<string>
 #include<random>
 #include<conio.h> //to not use cout or cin. used to no stop programm running
@@ -41,7 +41,6 @@ void interface_draw(short Ox, short Oy, short coin_1, short coin_2, short count)
 	{
 		array[coin_1][coin_2] = 9;
 	}
-	
 
 	array[Oy][Ox] = 1;
 	std::cout << std::endl;
@@ -82,70 +81,6 @@ void interface_draw(short Ox, short Oy, short coin_1, short coin_2, short count)
 	std::cout << std::endl << "Moves count >> " << count;
 }
 
- /*
-short player_draw(short Ox, short Oy)
-{
-	
-	if (_kbhit()) {
-		char ch = _getch();
-		
-		switch (ch){
-			case 'w':{
-				Oy--;
-				return Oy;
-				break;
-			}
-			case 's':{
-				Oy++; //the bigger Oy the lower position
-				return Oy;
-				break;
-			}
-			case 'd': {
-				Ox++;
-				return Ox;
-
-				break;
-			}
-			case 'a': {
-				Ox--;
-				return Ox;
-				break;
-			}
-		}
-	} 
-}
-*/
-/*
-short player_ox(short Ox)
-{
-	short tired = Ox;
-	int get_key = 0;
-
-	while (get_key == 0)
-	{
-		if ((Ox - tired) > 0)
-		{
-			get_key = 1;
-		}
-
-		if (_kbhit()) {
-			char ch = _getch();
-
-			switch (ch) {
-			case 'd': {
-				Ox++;
-				break;
-			}
-			case 'a': {
-				Ox--;
-				break;
-			}
-			}
-		} 
-	}
-	return Ox;
-}
-*/
 short get_button(char button, short Ox, short Oy)
 {
 	short tired = Oy;
@@ -186,38 +121,6 @@ short get_button(char button, short Ox, short Oy)
 	}
 	return what_to_return;
 }
-/*
-short player_oy(short Oy)
-{
-	short tired = Oy;
-	int get_key = 0;
-
-	while (get_key == 0)
-	{
-		if ((Oy - tired) > 0)
-		{
-			get_key = 1;
-		}
-		
-		if (_kbhit()) {
-			char ch = _getch();
-
-			switch (ch) {
-			case 'w': {
-				Oy--;
-				break;
-			}
-			case 's': {
-				Oy++; //the bigger Oy the lower position
-				break;
-			}
-			}
-
-		}
-	}
-	return Oy;
-}
-*/
 
 int main() 
 {
@@ -312,6 +215,18 @@ int main()
 				}
 				}
 
+				if (player_Oy > 6) //work 
+					player_Oy--;
+
+				if (player_Ox > 6)//not
+					player_Ox--;
+
+				if (player_Oy < 0)
+					player_Oy++;
+
+				if (player_Ox < 0) //work
+					player_Ox++;
+				
 				if ((player_Oy == coin && player_Ox == coin1))
 				{
 					coin = 0;
