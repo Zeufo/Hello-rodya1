@@ -167,6 +167,7 @@ int main()
 				}
 
 				button = get_button(ch);
+				if (button != 0)
 				moves_count++;
 
 				switch (button)
@@ -190,16 +191,16 @@ int main()
 				}
 
 				if (player_Oy > 6) //work 
-					player_Oy--;
+					player_Oy--, moves_count--;
 
 				if (player_Ox > 6)//not
-					player_Ox--;
+					player_Ox--, moves_count--;
 
 				if (player_Oy < 0)
-					player_Oy++;
+					player_Oy++, moves_count--;
 
 				if (player_Ox < 0) //work
-					player_Ox++;
+					player_Ox++, moves_count--;
 				
 				if ((player_Oy == coin && player_Ox == coin1))
 				{
