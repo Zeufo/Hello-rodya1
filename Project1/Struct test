@@ -1,0 +1,196 @@
+#include<iostream>
+#include<string>
+#include<fstream>
+
+struct Person
+{
+	std::string Name;
+	int age = 0;
+	std::string employee_status;
+};
+
+struct Person_data
+{
+	struct Employee
+	{
+		std::string position;
+		float salary = 0.0;
+	} employee; //why?
+
+	struct Student
+	{
+		std::string major;
+		float gpa = 0.0;
+	}student; //why again?
+
+	std::string type;//need to confirm which struct is using
+};
+
+struct PersonInfo
+{
+	Person base;
+	Person_data info;
+};
+
+short menu()
+{
+	short menu = 0;
+	short check = 0;
+	bool cin_check;
+	
+	while (check != 1) {
+
+		system("cls");
+
+		std::cout << "CAUTION!\nOnly one word for every answer\n";
+
+		std::cout << "1.Add user 2.Users list\n";
+		std::cin >> menu;
+		cin_check = std::cin.fail();
+
+		if (cin_check) {
+			std::cin.ignore(100, '\n');
+			menu = 0;
+			continue;
+		}
+		else check = 1;
+	}
+	
+	return menu;
+}
+
+PersonInfo new_person()
+{
+	short check = 0;
+	bool cin_check;
+
+	PersonInfo user;//as i get it, we create integer which belong to struct, and then tell this integer which thing to take from struct
+			
+	std::cout << "Eneter name: \n";
+	std::cin.ignore(); //to clear cin
+	std::getline(std::cin, user.base.Name);
+
+	while (check != 1)
+	{
+		std::cout << "Eneter age: \n";
+		std::cin >> user.base.age;
+
+		cin_check = std::cin.fail(); //error = true
+
+		if(cin_check)
+		{
+			std::cin.clear();
+			std::cin.ignore();
+			continue;
+		} else check = 1;
+	}
+
+	std::cout << "Enter 'student' if user is: \n";
+	std::cin.ignore();
+	std::getline(std::cin, user.base.employee_status);
+
+	if (user.base.employee_status == "student" || user.base.employee_status == "Student") {	
+		std::cout << "Major: \n";
+		std::cin >> user.info.student.major;
+
+		std::cout << "GPA: \n";
+		std::cin >> user.info.student.gpa;
+	}
+	else
+	{
+		std::cout << "Position: \n";
+		std::cin >> user.info.employee.position;
+
+		std::cout << "Salary in dollars: \n";
+		std::cin >> user.info.employee.salary;//still dont understand why i added posit. and empl. in the end in the info
+	}
+
+	return user;
+}
+
+void output_person(PersonInfo user)
+{
+	char space = ' ';
+	float student_check = user.info.student.gpa;
+
+	std::ofstream user_list("Пользователи.txt", std::ofstream::app);
+	user_list << user.base.Name << space;
+	user_list << user.base.age << space;
+	
+	
+	if(student_check == 0)
+	{
+		user_list << user.info.employee.position << space;
+		user_list << user.info.employee.salary << space;
+	} else{
+			user_list << user.info.student.major << space;
+			user_list << user.info.student.gpa << space;
+		}
+	user_list << std::endl;
+	user_list.close();
+}
+
+void persons_list()
+{
+	std::ifstream User_list_txt("Пользователи.txt");
+	std::string to_input = " ";
+	int input_control = 1
+		;
+
+	while(User_list_txt >> to_input)
+	{
+		std::cout << to_input << " ";
+		if(input_control % 4 == 0) 
+		{
+			std::cout << std::endl;
+		}
+		
+		input_control++;
+	}
+	std::cout << "\npress any key to continue \n";
+	std::cin >> to_input;
+
+	User_list_txt.close();
+}
+
+short file_open()
+{
+	short is_open_wrong = 0;
+
+	std::fstream User_list_txt("Пользователи.txt", std::ofstream::app);
+	
+	if(!User_list_txt.is_open())
+	{
+		std::cout << "Список пользователей не найден\n";
+		is_open_wrong = 1;
+	}
+	
+	User_list_txt.close();
+	return  is_open_wrong;
+}
+
+int main()
+{
+	PersonInfo int_to_change;
+
+	int is_running = 1, main_choice, file_check, employee_check;
+
+	while(is_running == 1)
+	{
+		system("cls");
+		main_choice = menu();
+		system("cls");
+
+		file_check = file_open();
+
+		if (file_check == 1)
+		continue;
+
+		switch (main_choice) {
+
+		case 1: int_to_change = new_person(); output_person(int_to_change);	break;
+		case 2: persons_list();	break;
+		}
+	}
+
+}
